@@ -1,4 +1,6 @@
 https://github.com/mramsudheer/roboshop-docker.git
+git diff --stat origin/main main
+
 # DISK RESIZE
 
 df -hT
