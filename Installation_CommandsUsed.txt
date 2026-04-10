@@ -47,6 +47,11 @@ docker tag mongodb:1.0.0 mramsudheer/roboshop:mongodb-1.0.0
 docker push mramsudheer/roboshop:mongodb-1.0.0
 docker pull mramsudheer/roboshop:mongodb-1.0.0
 
+docker push mramsudheer/roboshop:payment-1.1.0 && \
+docker push mramsudheer/roboshop:shipping-1.1.0 && \
+docker push mramsudheer/roboshop:user-1.1.0
+
+
 docker tag catalogue:1.0.0 mramsudheer/roboshop:catalogue-1.0.0
 docker push mramsudheer/roboshop:catalogue-1.0.0
 
