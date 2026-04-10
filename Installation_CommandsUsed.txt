@@ -1,0 +1,66 @@
+
+# DISK RESIZE
+
+df -hT
+lsblk
+sudo growpart /dev/nvme0n1 4
+sudo lvextend -L +20G /dev/RootVG/rootVol
+sudo lvextend -L +30G /dev/RootVG/varVol
+sudo xfs_growfs /
+sudo xfs_growfs /var
+#----------------------------------------------------------------------------
+
+# DOCKER INSTALLATION
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker ec2-user
+logout and login again
+
+docker commands
+===============
+docker ps -> running containers
+docker images -> images available
+docker pull nginx -> pull the image from dockerhub
+docker create nginx -> creates the containers, status is created
+docker start container-id -> start the container
+docker rm container-id
+docker rmi nginx
+docker run nginx = pull + create + start
+
+nginx = OS + system packages + nginx software
+============================================================
+docker build -t mongodb:1.0.0 .
+docker images
+docker create --name mongodb mongodb:1.0.0
+docker ps
+docker start monogdb
+
+docker login -u mramsudheer
+
+docker tag mongodb:1.0.0 mramsudheer/roboshop:mongodb-1.0.0
+docker push mramsudheer/roboshop:mongodb-1.0.0
+docker pull mramsudheer/roboshop:mongodb-1.0.0
+
+docker tag catalogue:1.0.0 mramsudheer/roboshop:catalogue-1.0.0
+docker push mramsudheer/roboshop:catalogue-1.0.0
+
+TO STOP ALL CONTAINERS
+docker stop $(docker ps -q)
+
+TO DELETE ALL IMAGES
+docker rmi -f $(docker images -q)
+
+TO RECLAIM DISK SPACE BY DELETING ALL UNUSED DOCKER DATA AT ONCE
+docker system prune -f
+
+Complete System Wipe
+docker system prune -a --volumes
+
+docker compose up -d --build
+docker compose ps
+
+docker compose logs -f frontend
