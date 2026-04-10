@@ -55,8 +55,21 @@ docker push mramsudheer/roboshop:user-1.1.0
 docker tag catalogue:1.0.0 mramsudheer/roboshop:catalogue-1.0.0
 docker push mramsudheer/roboshop:catalogue-1.0.0
 
+TO CREATE A CONTAINER
+docker create --name mongodb mongodb:1.0.0
+
+TO START THE CONTAINER
+docker start mongodb
+
+TO LOGIN INTO CONTAINER
+docker exec -it maongodb bash
+
 TO STOP ALL CONTAINERS
 docker stop $(docker ps -q)
+
+TO DELETE THE CONTAINER
+docker rm mongodb
+docker rm -f monogdb
 
 TO DELETE AN IMAGE
 docker rmi roboshop:catalogue-1.0.0
@@ -77,6 +90,7 @@ docker system prune -f
 Complete System Wipe
 docker system prune -a --volumes
 
+WRITE EVERYTHING IN docker-compose.yaml AND RUN
 docker compose up -d --build
 docker compose ps
 
