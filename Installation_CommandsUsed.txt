@@ -33,9 +33,9 @@ docker run nginx = pull + create + start
 
 nginx = OS + system packages + nginx software
 ============================================================
-docker build -t mongodb:1.0.0 .
+docker build -t mramsudheer/roboshop:mongodb-1.0.0 .
 docker images
-docker create --name mongodb mongodb:1.0.0
+docker create --name mongodb mramsudheer/roboshop:mongodb-1.0.0
 docker ps
 docker start monogdb
 
@@ -51,8 +51,18 @@ docker push mramsudheer/roboshop:catalogue-1.0.0
 TO STOP ALL CONTAINERS
 docker stop $(docker ps -q)
 
+TO DELETE AN IMAGE
+docker rmi roboshop:catalogue-1.0.0
 TO DELETE ALL IMAGES
 docker rmi -f $(docker images -q)
+
+TO DELETE IMAGE FROM DOCKER HUB
+sudo dnf install -y skopeo
+skopeo delete --creds your_username:your_password \
+  docker://docker.io/mramsudheer/roboshop:mongodb-1.0.0
+
+skopeo delete --creds mramsudheer:Saibaba06! \
+  docker://docker.io/mramsudheer/roboshop:cart-1.0.0
 
 TO RECLAIM DISK SPACE BY DELETING ALL UNUSED DOCKER DATA AT ONCE
 docker system prune -f
