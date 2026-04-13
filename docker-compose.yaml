@@ -12,6 +12,11 @@ services:
     depends_on:
     - redis
     - mongodb
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_URL=redis://redis:6379
+      - MONGO_URL=mongodb://mongodb:27017/users
   cart:
     build: ./cart
     image: mramsudheer/roboshop:cart-1.1.0
@@ -26,6 +31,9 @@ services:
     depends_on:
     - mysql
     - cart
+    environment:
+      - CART_ENDPOINT=cart:8080
+      - DB_HOST=mysql
   payment:
     build: ./payment
     image: mramsudheer/roboshop:payment-1.1.0

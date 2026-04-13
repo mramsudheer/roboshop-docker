@@ -4,6 +4,8 @@ git diff --stat origin/main main
 # DISK RESIZE
 
 df -hT
+vgs - To see total Unallocated space
+lvs - Each partition size
 lsblk
 sudo growpart /dev/nvme0n1 4
 sudo lvextend -L +20G /dev/RootVG/rootVol
@@ -64,6 +66,12 @@ docker start mongodb
 TO LOGIN INTO CONTAINER
 docker exec -it maongodb bash
 
+LIST OF NETWORKS
+docker network ls
+
+TO CHECK THE CONTAINERS NETWORK
+docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.NetworkID}}{{end}}' $(docker ps -q)
+
 TO STOP ALL CONTAINERS
 docker stop $(docker ps -q)
 
@@ -73,6 +81,7 @@ docker rm -f monogdb
 
 TO DELETE AN IMAGE
 docker rmi roboshop:catalogue-1.0.0
+
 TO DELETE ALL IMAGES
 docker rmi -f $(docker images -q)
 
@@ -95,3 +104,13 @@ docker compose up -d --build
 docker compose ps
 
 docker compose logs -f frontend
+docker compose logs frontend
+
+docker compose down
+docker network inspect roboshop
+
+docker compose up -d redis
+docker compose restart user
+
+
+ACCESS with PUBLIC IP
